@@ -4,10 +4,6 @@ import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { IAppProvider, TLangs } from "@/providers/app";
 import { Flag } from '@/app.organizer';
-import {
-  ROUTE_CRYPTO_OVERVIEW,
-  ROUTE_CRYPTO_FAVORITES,
-} from "@/app.routes";
 
 
 const App = inject("App") as IAppProvider;
