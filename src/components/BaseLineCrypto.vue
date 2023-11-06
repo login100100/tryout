@@ -11,6 +11,7 @@ import { ROUTE_CRYPTO_VIEW } from "@/app.routes";
 
 const props = defineProps<{
     itemId: string,
+    crypto: TCryptoData,
 }>();
 
 const cryptoStore = useCryptoStore();
@@ -18,31 +19,30 @@ const cryptoStore = useCryptoStore();
 const { currencyActive, cryptoList, cryptoFavorites } = storeToRefs(cryptoStore);
 const { addFavorite, removeFavorite } = cryptoStore;
 
-const crypto = ref(cryptoList.value.get(props.itemId) as TCryptoData)
 
 const currencySymbol = computed(() => useCurrencySymbol(currencyActive.value));
 
 const chartElement = ref();
-const chartIsVisible = ref(true);
+const chartIsVisible = ref(false);
 
 const isInFavorites = computed(() =>
-  crypto.value ? (cryptoFavorites.value.get(crypto.value.id) ? true : false): false
+  props.crypto ? (cryptoFavorites.value.get(props.crypto.id) ? true : false): false
 );
 
 const toggleFavorite = () => {
-  if (isInFavorites.value && crypto.value) {
-    removeFavorite(crypto.value);
-  } else if (crypto.value) addFavorite(crypto.value);
+  if (isInFavorites.value && props.crypto) {
+    removeFavorite(props.crypto);
+  } else if (props.crypto) addFavorite(props.crypto);
 };
 
 useIntersectionObserver(chartElement, ([{ isIntersecting }]) => {
-  chartIsVisible.value = true;
+  chartIsVisible.value = isIntersecting;
 });
 
 const calculatedSparkline = computed(() => {
-  if (!crypto?.value?.sparkline_in_7d?.length) return [] as number[];
+  if (!props.crypto?.sparkline_in_7d?.length) return [] as number[];
 
-  const toReduce = crypto.value.sparkline_in_7d;
+  const toReduce = props.crypto.sparkline_in_7d;
 
   const reduced = toReduce.reduce((acc, val, index) => {
     if (index && index % 23 === 0) acc.push(val);
@@ -76,7 +76,7 @@ const orderedSparkLabels = computed(() => {
     <div class="flex w-20 pl-2 pr-2 items-center">
       <img
         v-if="crypto.image"
-        :src="crypto.image"
+        v-lazy="crypto.image"
         class="w-8 h-8 border-round rounded-full"
       />
       <Spinner v-else color="#DDD" size="small" class="inline-block mx-auto" />

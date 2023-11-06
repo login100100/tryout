@@ -156,6 +156,7 @@ defineExpose({
         v-for="item in orderedList"
         :key="`${item[props.componentKey]}`"
         :item-id="item.id"
+        :crypto="item"
       />
     </template>
   </div>
