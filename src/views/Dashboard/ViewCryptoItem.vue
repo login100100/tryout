@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { inject, computed, watch, ref, onMounted } from "vue";
+import { BaseCardCrypto, BaseLoader } from "@/app.organizer";
 import { useCryptoStore } from "@/stores/crypto";
 import { useI18n } from "vue-i18n";
 import { TCryptoData } from "@/stores/crypto.types";

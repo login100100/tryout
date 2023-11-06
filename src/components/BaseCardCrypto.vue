@@ -3,6 +3,12 @@ import { computed, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { TCryptoData } from "@/stores/crypto.types";
 import { useCryptoStore } from "@/stores/crypto";
+import {
+  BaseCryptoChart,
+  BaseSelectFilter,
+  FavoriteStar,
+  Spinner,
+} from "@/app.organizer";
 import useCurrencySymbol from "@/composables/useCurrencySymbol";
 import { useI18n } from "vue-i18n";
 

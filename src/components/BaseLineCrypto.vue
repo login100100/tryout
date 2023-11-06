@@ -3,6 +3,7 @@ import { computed, ref, inject } from "vue";
 import { storeToRefs } from "pinia";
 import { TCryptoData } from "@/stores/crypto.types";
 import { useCryptoStore } from "@/stores/crypto";
+import { BaseCryptoChart, FavoriteStar, Spinner } from "@/app.organizer";
 import { useIntersectionObserver } from "@vueuse/core";
 import useCurrencySymbol from "@/composables/useCurrencySymbol";
 
