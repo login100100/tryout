@@ -77,6 +77,7 @@ const orderedSparkLabels = computed(() => {
       <img
         v-if="crypto.image"
         v-lazy="crypto.image"
+        :alt="crypto.name"
         class="w-8 h-8 border-round rounded-full"
       />
       <Spinner v-else color="#DDD" size="small" class="inline-block mx-auto" />

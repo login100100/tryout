@@ -24,5 +24,5 @@ const getImageSource = computed(() => {
 </script>
 
 <template>
-  <img :src="getImageSource" class="w-6 h-6 inline-block cursor-pointer" />
+  <img :src="getImageSource" class="w-6 h-6 inline-block cursor-pointer" :alt="props.active ? 'remove from favorites' : 'add to favorites'" />
 </template>

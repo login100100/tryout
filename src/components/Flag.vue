@@ -23,6 +23,7 @@ const imageSource = new URL(`../assets/img/flags/${props.type}.png`, import.meta
     <img
       :class="{ isloading: props.isLoading, active: props.isActive }"
       class="el-flags"
+      :alt="props.type"
       :src="imageSource"
       style="width: 100%"
     />
