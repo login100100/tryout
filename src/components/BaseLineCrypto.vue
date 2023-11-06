@@ -3,6 +3,7 @@ import { computed, ref, inject } from "vue";
 import { storeToRefs } from "pinia";
 import { TCryptoData } from "@/stores/crypto.types";
 import { useCryptoStore } from "@/stores/crypto";
+import { useRouter } from 'vue-router';
 import { BaseCryptoChart, FavoriteStar, Spinner } from "@/app.organizer";
 import { useIntersectionObserver } from "@vueuse/core";
 import useCurrencySymbol from "@/composables/useCurrencySymbol";
@@ -13,6 +14,8 @@ const props = defineProps<{
     itemId: string,
     crypto: TCryptoData,
 }>();
+
+const router = useRouter();
 
 const cryptoStore = useCryptoStore();
 
@@ -60,18 +63,20 @@ const orderedSparkLabels = computed(() => {
     } else return "";
   });
 });
+
+const onItemClick = (e: Event) => {
+  const cryptoParam = JSON.stringify(props.crypto);
+  router.push({
+    name: ROUTE_CRYPTO_VIEW.name,
+    params: { id: props.crypto.id, crypto: cryptoParam },
+  });
+};
 </script>
 
 <template>
   <div
     class="line-crypto w-100 block flex flex-1 h-16 mb-1 cursor-pointer"
-    @click="
-      (event) =>
-        $router.push({
-          name: ROUTE_CRYPTO_VIEW.name,
-          params: { id: crypto.id },
-        })
-    "
+    @click="onItemClick"
   >
     <div class="flex w-20 pl-2 pr-2 items-center">
       <img

@@ -48,9 +48,9 @@ watch(currencyActive, (newCrypto) => {
 
 
 const registerItem = () => {
-  const storeItem = cryptoList.value.get(id as string);
-  if (storeItem) { 
-    item.value = storeItem;
+  const routeItem = JSON.parse(router.currentRoute.value.params.crypto as string);
+  if (routeItem) { 
+    item.value = routeItem;
     return true
   }
   else {
@@ -65,7 +65,6 @@ const fetchItemInfos = () => {
 onMounted(() => {
   if (isReadyCryptoStore.value) {
     registerItem()
-    fetchItemInfos();
   }
 })
 
@@ -77,7 +76,7 @@ onMounted(() => {
     {{  isReadyCryptoStore ?'tru' :'false' }}
   </div>
   <div v-else-if="isReadyCryptoStore && item" class="flex flex-1 relative">
-    <BaseCardCrypto :data="item" :item-id="item.id" />
+    <BaseCardCrypto :item="item" :item-id="item.id" />
   </div>
 </template>
 

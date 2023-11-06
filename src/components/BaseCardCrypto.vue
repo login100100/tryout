@@ -14,6 +14,7 @@ import { useI18n } from "vue-i18n";
 
 const props = defineProps<{
     itemId: string,
+    item: TCryptoData,
 }>();
 
 const cryptoStore = useCryptoStore();
@@ -23,7 +24,7 @@ const { currencyActive, cryptoFavorites, currenciesList,  cryptoList } =
 
 const { setCurrencyActive, addFavorite, removeFavorite } = cryptoStore;
 
-const crypto = ref(cryptoList.value.get(props.itemId) as TCryptoData)
+const crypto = ref(props.item);
 const currencySymbol = computed(() => useCurrencySymbol(currencyActive.value));
 const chartElement = ref();
 
