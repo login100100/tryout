@@ -153,8 +153,8 @@ defineExpose({
     <template v-else>
       <component
         :is="props.component"
-        v-for="item in orderedList"
-        :key="`${item[props.componentKey]}`"
+        v-for="(item, index) in orderedList"
+        :key="index"
         :item-id="item.id"
         :crypto="item"
       />
