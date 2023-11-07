@@ -99,7 +99,7 @@ const orderedSparkLabels = computed(() => {
       <div v-else class="text-sm border-1 text-gray-300">N/A</div>
     </div>
     <div class="flex pl-4 pr-4 w-36 items-center text-black dark:text-white">
-      <template v-if="crypto?.pricesByCurrencies[currencyActive]?.market_cap">
+      <template v-if="typeof crypto?.pricesByCurrencies[currencyActive]?.market_cap === 'number'">
         {{ crypto.pricesByCurrencies[currencyActive].market_cap }}
         {{ currencySymbol }}
       </template>
