@@ -31,7 +31,7 @@ const { t: print } = useI18n();
 
 const isInFavorites = computed(() => {
         if (crypto.value)
-            !!cryptoFavorites.value.get(crypto.value.id)
+            return !!cryptoFavorites.value.get(crypto.value.id)
         return false;
 })
 
@@ -120,7 +120,7 @@ const orderedSparkLabels = computed(() => {
           <div class="inline text-center lg:text-left">
             <span class="text-sm font-bold">{{ print("market_cap") }}</span> :
             <template
-              v-if="crypto?.pricesByCurrencies[currencyActive]?.market_cap"
+              v-if="typeof crypto?.pricesByCurrencies[currencyActive]?.market_cap === 'number'"
             >
               {{ crypto.pricesByCurrencies[currencyActive].market_cap }}
               {{ currencySymbol }}

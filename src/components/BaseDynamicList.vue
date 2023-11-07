@@ -140,7 +140,7 @@ defineExpose({
 <template>
   <div
     ref="scroller"
-    class="scroller h-10 overflow-y-scroll flex-auto"
+    class="scroller h-10 overflow-y-auto flex-auto"
   > 
     <div
       v-if="!orderedList.length"
