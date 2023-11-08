@@ -6,7 +6,6 @@ import { useCryptoStore } from "@/stores/crypto";
 import { useRouter } from 'vue-router';
 import { BaseCryptoChart, FavoriteStar, Spinner } from "@/app.organizer";
 import { useIntersectionObserver } from "@vueuse/core";
-import useLocalStorage from '@/composables/useLocalStorage';
 import useCurrencySymbol from "@/composables/useCurrencySymbol";
 
 import { ROUTE_CRYPTO_VIEW } from "@/app.routes";

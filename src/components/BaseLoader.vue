@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { IAppProvider } from '@/providers/app';
 import { inject } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { Spinner } from '@/app.organizer';
 
 const App = inject<IAppProvider>('App')

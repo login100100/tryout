@@ -16,7 +16,6 @@ const router = useRouter();
 const { t: print, locale } = useI18n();
 const isMobileMenuOpen = ref(false);
 const currentRouteName = computed(() => router.currentRoute.value.name);
-const activeLanguage = computed(() => App.lang.value);
 
 const setMobileMenuOpen = (value: boolean) => {
   isMobileMenuOpen.value = value;

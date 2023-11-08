@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, reactive, ref, onMounted } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
-import { TCryptoData } from "@/stores/crypto.types";
 import { useCryptoStore } from "@/stores/crypto";
 import { useRouter } from 'vue-router';
 import {
@@ -58,7 +57,7 @@ const toggleFavorite = () => {
 const calculatedSparkline = computed(() => {
   if (!crypto?.value?.sparkline_in_7d?.length) return false;
   const toReduce = crypto.value.sparkline_in_7d;
-  const reduced = toReduce.reduce((acc, val, index) => {
+  const reduced = toReduce.reduce((acc: number[], val: number, index: number) => {
     if (index && index % 23 === 0) acc.push(val);
     return acc;
   }, new Array<number>());
@@ -68,7 +67,7 @@ const calculatedSparkline = computed(() => {
 
 const orderedSparkLabels = computed(() => {
   if (!calculatedSparkline.value) return [];
-  return calculatedSparkline.value.map((_, index: number) => {
+  return calculatedSparkline.value.map((_: number, index: number) => {
     if (calculatedSparkline.value) {
       return "J-" + (index - calculatedSparkline.value.length);
     } else return "";
