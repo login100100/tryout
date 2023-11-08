@@ -1,9 +1,7 @@
-import { defineStore } from "pinia";
 import axios from "axios";
 import useLocalStorage from "@/composables/useLocalStorage";
 import { LOCALSTORAGE_CRYPTO_CURRENCY, LOCALSTORAGE_CRYPTO_FAVORITES } from "@/app.storages";
 import type {
-  TCryptoDefaultStates,
   TCryptoData,
   TEntryCategoryData,
   TEntryCryptoData,
@@ -24,7 +22,7 @@ const _loadFavorites = (): Map<string,TCryptoData> => {
   else return new Map();
 }
 
-const useCrypto = () => {
+export const useCrypto = () => {
   const cryptoList = reactive(new Map<string, TCryptoData>());
   const currenciesList: Ref<string[]> = ref([]);
   const categoriesList: Ref<TCategoryData[]> = ref([]);
@@ -155,6 +153,23 @@ const useCrypto = () => {
     cryptoFavorites.delete(crypto.id);
     useLocalStorage.set(LOCALSTORAGE_CRYPTO_FAVORITES, Array.from(cryptoFavorites));
   }
-}
 
-export default useCrypto;
+  return {
+    cryptoList,
+    currenciesList,
+    categoriesList,
+    currencyActive,
+    categoryActive,
+    cryptoFavorites,
+    isReadyCategories,
+    isReadyCurrencies,
+    isReadyCryptoList,
+    fetchCategoriesList,
+    fetchCryptoList,
+    fetchCryptosInfos,
+    fetchCurrenciesList,
+    setCurrencyActive,
+    addFavorite,
+    removeFavorite,
+  }
+}
