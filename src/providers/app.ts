@@ -1,8 +1,9 @@
 import { AVAILABLE_LANGUAGES, AVAILABLE_THEMES } from "@/app.constants";
-import { LOCALSTORAGE_LANGUAGE, LOCALSTORAGE_THEME } from "@/app.storages";
+import { LOCALSTORAGE_LANGUAGE, LOCALSTORAGE_THEME, LOCALSTORAGE_CRYPTO } from "@/app.storages";
 import { reactive, Ref, toRefs } from "vue";
 import useLocalStorage from '@/composables/useLocalStorage';
 import { Router, RouteLocation } from "vue-router";
+import { TCryptoData } from "@/stores/crypto.types";
 
 export type TLangs = 'fr' | 'en'
 type TThemes = 'light' | 'dark'
@@ -13,6 +14,7 @@ export interface IAppProvider {
   loadingRoute: Ref<boolean>;
   setLanguage: (value: TLangs) => void;
   setTheme: (value: TThemes) => void;
+  setCrypto: (value: TCryptoData) => void;
 }
 
 export function useAppProvider(router: Router) {
@@ -50,9 +52,14 @@ export function useAppProvider(router: Router) {
     state.theme = value;
   };
 
+  const setCrypto = (value: TCryptoData | ''): void => {
+    useLocalStorage.set(LOCALSTORAGE_CRYPTO, Object.keys(value).length ? JSON.stringify(value) : '');
+  }
+
   return {
     ...toRefs(state),
     setTheme,
-    setLanguage
+    setLanguage,
+    setCrypto,
   } as IAppProvider;
 }

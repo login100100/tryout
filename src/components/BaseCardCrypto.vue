@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, reactive, ref, onMounted } from "vue";
 import { storeToRefs } from "pinia";
 import { TCryptoData } from "@/stores/crypto.types";
 import { useCryptoStore } from "@/stores/crypto";
+import { useRouter } from 'vue-router';
 import {
   BaseCryptoChart,
   BaseSelectFilter,
@@ -11,19 +12,22 @@ import {
 } from "@/app.organizer";
 import useCurrencySymbol from "@/composables/useCurrencySymbol";
 import { useI18n } from "vue-i18n";
+import useLocalStorage from "@/composables/useLocalStorage";
+import { LOCALSTORAGE_CRYPTO } from "@/app.storages";
 
 const props = defineProps<{
     itemId: string,
 }>();
 
 const cryptoStore = useCryptoStore();
+const router = useRouter();
 
 const { currencyActive, cryptoFavorites, currenciesList,  cryptoList } =
   storeToRefs(cryptoStore);
 
 const { setCurrencyActive, addFavorite, removeFavorite } = cryptoStore;
 
-const crypto = ref(cryptoList.value.get(props.itemId) as TCryptoData)
+const crypto = ref(JSON.parse(useLocalStorage.get(LOCALSTORAGE_CRYPTO)));
 const currencySymbol = computed(() => useCurrencySymbol(currencyActive.value));
 const chartElement = ref();
 
@@ -70,6 +74,12 @@ const orderedSparkLabels = computed(() => {
     } else return "";
   });
 });
+
+onMounted(() => {
+  if (!crypto.value || (crypto.value.id !== router.currentRoute.value.params.id)) {
+    router.push({ name: 'Overview' });
+  }
+})
 </script>
 
 <template>
